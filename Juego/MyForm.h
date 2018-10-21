@@ -142,7 +142,7 @@ namespace Juego {
 		{
 			arreglo->obtener(i)->mover(gr);
 		}
-			objm->mover(gr);
+			objm->mover(d);
 	}
 	};
 }

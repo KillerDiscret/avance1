@@ -6,7 +6,7 @@ class padre
 protected:
 	int radio, dx, dy;
 	int tiempo, veces;
-	double x, y;
+	int x, y;
 public:
 	padre(Graphics^g, int dx, int dy,int radio, int tiempo, int veces);
 	void borrar(Graphics ^gr);
@@ -15,8 +15,8 @@ public:
 };
 padre::padre(Graphics^g, int dx, int dy, int radio,int tiempo, int veces)
 {
-	this->x = (g->VisibleClipBounds.Width)/(2.5);
-	this->y = (g->VisibleClipBounds.Height) / (2.5);
+	this->x = (g->VisibleClipBounds.Width)/(2);
+	this->y = (g->VisibleClipBounds.Height) / (2);
 	this->dx = dx;
 	this->dy = dy;
 	this->radio = radio;
