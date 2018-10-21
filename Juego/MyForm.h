@@ -1,7 +1,9 @@
 #pragma once
+#include <Windows.h>
 #include "ArregloCG.h"
 #include "circuloG.h"
 #include "circuloM.h"
+
 
 namespace Juego {
 
@@ -20,6 +22,7 @@ namespace Juego {
 	private:
 		cg*obj1;
 		cm*objm;
+		cm*obj2m;
 		Arrcg*arreglo;
 
 		int tCG;
@@ -35,6 +38,7 @@ namespace Juego {
 			d = this->CreateGraphics();
 			obj1 = new cg(d,5,5,100,50,5);
 			objm = new cm(d,5,5,50,50,5);
+			obj2m = new cm(d, 5, 5, 50, 50, 5);
 			arreglo = new Arrcg();
 			tCG = 0;
 			vCG = 0;
@@ -120,6 +124,8 @@ namespace Juego {
 	private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) {
 		Graphics^gr = this->CreateGraphics();
 	//crear hasta cierta cantidad;
+		obj2m->mover(d);
+		
 		if (iCG)
 		{
 			if (tCG == obj1->get_tiempo())
@@ -142,7 +148,7 @@ namespace Juego {
 		{
 			arreglo->obtener(i)->mover(gr);
 		}
-			objm->mover(d);
+		
 	}
 	};
 }

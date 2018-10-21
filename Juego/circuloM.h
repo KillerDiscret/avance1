@@ -4,6 +4,7 @@ class cm : public padre
 {private:
 	int orientacion;
 	bool habilita=true;
+	int pos=1;
 public:
 	cm(Graphics^g, int dx, int dy, int radio, int tiempo, int veces);
 	void mover(Graphics ^gr);
@@ -15,7 +16,7 @@ cm::cm(Graphics^g, int dx, int dy, int radio, int tiempo, int veces) : padre(g, 
 {
 	Random r;
 	int aux;
-	aux = r.Next(1, 2);
+	aux = r.Next(1, 5);
 	if (aux == 1)
 	{
 		orientacion = 1;
@@ -44,12 +45,98 @@ void cm::mover(Graphics ^gr)
 				//derecha
 				x++;
 				x = x + dx;
-				if (x + dx + radio >=gr->VisibleClipBounds.Width)
+				if (x+ radio >=gr->VisibleClipBounds.Width)
 				{
-					x = 300;
+					x = (gr->VisibleClipBounds.Width)-(radio/2);
 					habilita = false;
+					pos = 2;
 				}
 			}
+			if (orientacion == 2)
+			{
+				//izquierda
+				x--;
+				x = x -dx;
+				if (x<=0)
+				{
+					x = -1*(radio / 2);
+					habilita = false;
+					pos = 4;
+				}
+			}
+			if (orientacion == 3)
+			{
+				//abajo
+				y++;
+				y = y + dy;
+				if (y+radio >= gr->VisibleClipBounds.Height)
+				{
+					y = (gr->VisibleClipBounds.Height) - (radio / 2);
+					habilita = false;
+					pos = 3;
+				}
+			}
+			if (orientacion == 4)
+			{
+				//arriba
+				y--;
+				y = y - dy;
+				if (y <= 0)
+				{
+					y = -1 * (radio / 2);
+					habilita = false;
+					pos = 1;
+				}
+			}
+		}
+		else
+		{
+			//arriba a la derecha
+			if (y == -1 * (radio / 2) &&(x<gr->VisibleClipBounds.Width)&&pos==1)
+			{
+				x++;
+				x = x+ dx;
+				if (x+dx+(radio/2)>=gr->VisibleClipBounds.Width)
+				{
+					pos = 2;
+					x = (gr->VisibleClipBounds.Width) - (radio / 2);
+				}
+			}
+			//derecha hacia abajo
+			if (pos==2&&y < gr->VisibleClipBounds.Height && (x== (gr->VisibleClipBounds.Width) - (radio / 2)))
+			{
+				y++;
+				y = y + dy;
+				if (y+ dy + (radio / 2) >=gr->VisibleClipBounds.Height)
+				{
+					pos =3;
+					y = (gr->VisibleClipBounds.Height) - (radio / 2);
+				}
+			}
+			//abajo hacia la izquieda
+			if (pos ==3 && (y== (gr->VisibleClipBounds.Height) - (radio / 2)) && x>0)
+			{
+				x--;
+				x=x-dx;
+				if (x<=0)
+				{
+			//falta pulir para que cambie de posicion bien
+					pos = 4;
+					x = -1 * (radio / 2);
+				}
+			}
+			//izquierda hacia arriba
+			if (pos==4&&y>=0 && x == -1 * (radio / 2))
+			{
+				y--;
+				y = y - dy;
+				if(y<0)
+				{
+					pos = 1;
+					y = -1 * (radio / 2);
+				}
+			}
+
 		}
 		dibujar(gr);
 }
