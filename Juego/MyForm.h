@@ -139,7 +139,7 @@ namespace Juego {
 				}
 				else
 				{
-				//asd
+				//asdasd
 					iCG = false;
 				}
 			}
